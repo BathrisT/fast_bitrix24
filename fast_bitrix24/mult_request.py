@@ -45,7 +45,9 @@ class MultipleServerRequestHandler:
             yield ensure_future(self.srh.single_request("batch", batch))
 
     def package_batch(self, chunk):
-        return {
+        if '=ownerId' in chunk[0]:
+            chunk[-1]['filter']['=ownerId'] = chunk[0]['=ownerId']
+        a = {
             "halt": 0,
             "cmd": {
                 self.batch_command_label(
@@ -54,6 +56,10 @@ class MultipleServerRequestHandler:
                 for i, item in enumerate(chunk)
             },
         }
+        if '=ownerId' in chunk[0]:
+            del chunk[-1]['filter']['=ownerId']
+        return a
+
 
     def batch_command_label(self, i, item):
         return f"cmd{i:010}"
