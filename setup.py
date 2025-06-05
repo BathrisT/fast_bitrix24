@@ -1,5 +1,4 @@
 import setuptools
-from fast_bitrix24.__version__ import __version__
 
 with open("README.md", "r", encoding='utf-8') as fh:
     long_description = fh.read()
@@ -9,7 +8,7 @@ with open('requirements.txt', 'r', encoding='utf-8') as fh:
 
 setuptools.setup(
     name="fast_bitrix24",
-    version=__version__,
+    version='1.0.0',
     author="Alexey Leshchenko",
     author_email="leshchenko@gmail.com",
     description='API wrapper для быстрого получения данных от Битрикс24 через '
