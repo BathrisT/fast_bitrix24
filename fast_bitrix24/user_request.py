@@ -44,6 +44,8 @@ class UserRequestAbstract:
         params: Union[Dict[str, Any], None] = None,
         mute=False,
     ):
+        print('UserRequestAbstract init called')
+        
         self.bitrix = bitrix
         self.srh: ServerRequestHandler = bitrix.srh
 
@@ -57,6 +59,7 @@ class UserRequestAbstract:
 
         self.mute = mute
         self.check_special_limitations()
+        print('UserRequestAbstract init finish')
 
     @staticmethod
     @icontract.ensure(
