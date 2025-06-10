@@ -230,7 +230,7 @@ class ServerRequestHandler:
     def failure(self, err: Exception):
         """Увеличить счетчик неудачных попыток и поднять исключение,
         если попытки исчерпаны."""
-
+        print(traceback.format_exc())
         self.successive_results = min(self.successive_results - 1, -1)
 
         if self.successive_results < -MAX_RETRIES:
