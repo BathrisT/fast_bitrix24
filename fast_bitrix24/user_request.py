@@ -168,8 +168,9 @@ class GetAllUserRequest(UserRequestAbstract):
         return True
 
     async def run(self):
+        print('run called')
         self.add_order_parameter()
-
+        print('make first request called')
         await self.make_first_request()
 
         if self.first_response.more_results_expected():
