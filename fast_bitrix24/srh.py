@@ -155,7 +155,7 @@ class ServerRequestHandler:
     async def single_request(self, method: str, params=None) -> dict:
         """Делает единичный запрос к серверу,
         с повторными попытками при необходимости."""
-
+        print('single request called')
         # начальное получение токена
         if self.token_func and not self.token:
             await self.ensure_new_token()
