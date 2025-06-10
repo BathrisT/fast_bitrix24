@@ -7,6 +7,7 @@ from aiohttp.client_exceptions import (
     ClientPayloadError,
     ClientResponseError,
 )
+import traceback
 
 from .throttle import SlidingWindowThrottler, LeakyBucketThrottler
 from .logger import logger
