@@ -177,10 +177,10 @@ class ServerRequestHandler:
 
     async def request_attempt(self, method, params=None) -> dict:
         """Делает попытку запроса к серверу, ожидая при необходимости."""
-
+        print('request attempt called')
         try:
             async with self.acquire(method):
-                logger.debug(f"Requesting {{'method': {method}, 'params': {params}}}")
+                print(f"Requesting {{'method': {method}, 'params': {params}}}")
 
                 params_with_auth = params.copy() if params else {}
                 if self.token:
@@ -191,7 +191,7 @@ class ServerRequestHandler:
                 ) as response:
                     json = await response.json(encoding="utf-8")
 
-                    logger.debug("Response: %s", json)
+                    print("Response: %s", json)
 
                     #self.add_throttler_records(method, params, json)
 
