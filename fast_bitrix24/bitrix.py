@@ -101,7 +101,7 @@ class BitrixAsync:
         Возвращает полный список сущностей, имеющихся на сервере,
         согласно заданным методу и параметрам.
         """
-
+        print('get all called')
         return await self.srh.run_async(GetAllUserRequest(self, method, params).run())
 
     @log
