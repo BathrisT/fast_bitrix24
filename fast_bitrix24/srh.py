@@ -142,7 +142,7 @@ class ServerRequestHandler:
 
         if not self.active_runs and (not self.session or self.session.closed):
             print('session created')
-            self.session = aiohttp.ClientSession(raise_for_status=True, timeout=15)
+            self.session = aiohttp.ClientSession(raise_for_status=True, timeout=aiohttp.ClientTimeout(total=15))
         self.active_runs += 1
 
         try:
