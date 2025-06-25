@@ -242,22 +242,21 @@ class ServerRequestHandler:
     @asynccontextmanager
     async def acquire(self, method: str):
         """Ожидает, пока не станет безопасно делать запрос к серверу."""
-        yield 
-        #
-        # await self.autothrottle()
-        #
-        # async with self.limit_concurrent_requests(), self.leaky_bucket_throttler.acquire():
-        #     if self.respect_velocity_policy:
-        #         if method not in self.method_throttlers:
-        #             self.method_throttlers[method] = SlidingWindowThrottler(
-        #                 self.operating_time_limit, BITRIX_MEASUREMENT_PERIOD
-        #             )
-        #
-        #         async with self.method_throttlers[method].acquire():
-        #             yield
-        #
-        #     else:
-        #         yield
+        
+        await self.autothrottle()
+        
+        async with self.limit_concurrent_requests(), self.leaky_bucket_throttler.acquire():
+            if self.respect_velocity_policy:
+                if method not in self.method_throttlers:
+                    self.method_throttlers[method] = SlidingWindowThrottler(
+                        self.operating_time_limit, BITRIX_MEASUREMENT_PERIOD
+                    )
+        
+                async with self.method_throttlers[method].acquire():
+                    yield
+        
+            else:
+                yield
 
     async def autothrottle(self):
         """Если было несколько неудач, делаем таймаут и уменьшаем скорость
