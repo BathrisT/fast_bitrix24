@@ -44,7 +44,6 @@ class UserRequestAbstract:
         params: Union[Dict[str, Any], None] = None,
         mute=False,
     ):
-        print('UserRequestAbstract init called')
         
         self.bitrix = bitrix
         self.srh: ServerRequestHandler = bitrix.srh
@@ -59,8 +58,7 @@ class UserRequestAbstract:
 
         self.mute = mute
         self.check_special_limitations()
-        print('UserRequestAbstract init finish')
-
+        
     @staticmethod
     @icontract.ensure(
         lambda result: result != "batch",
@@ -171,9 +169,7 @@ class GetAllUserRequest(UserRequestAbstract):
         return True
 
     async def run(self):
-        print('run called')
         self.add_order_parameter()
-        print('make first request called')
         await self.make_first_request()
 
         if self.first_response.more_results_expected():
