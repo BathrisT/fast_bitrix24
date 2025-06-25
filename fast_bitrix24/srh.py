@@ -142,7 +142,7 @@ class ServerRequestHandler:
             return
 
         if not self.active_runs and (not self.session or self.session.closed):
-            print('session created')
+            ('session created')
             self.session = aiohttp.ClientSession(raise_for_status=True, timeout=aiohttp.ClientTimeout(total=15))
         self.active_runs += 1
 
@@ -157,7 +157,6 @@ class ServerRequestHandler:
     async def single_request(self, method: str, params=None) -> dict:
         """Делает единичный запрос к серверу,
         с повторными попытками при необходимости."""
-        print('single request called')
         # начальное получение токена
         if self.token_func and not self.token:
             await self.ensure_new_token()
@@ -179,11 +178,9 @@ class ServerRequestHandler:
 
     async def request_attempt(self, method, params=None) -> dict:
         """Делает попытку запроса к серверу, ожидая при необходимости."""
-        print('request attempt called')
         try:
             async with self.acquire(method):
-                print(f"Requesting {{'method': {method}, 'params': {params}}}")
-
+                
                 params_with_auth = params.copy() if params else {}
                 if self.token:
                     params_with_auth["auth"] = self.token
@@ -193,8 +190,7 @@ class ServerRequestHandler:
                 ) as response:
                     json = await response.json(encoding="utf-8")
 
-                    print("Response: %s", json)
-
+                    
                     #self.add_throttler_records(method, params, json)
 
                     return json
